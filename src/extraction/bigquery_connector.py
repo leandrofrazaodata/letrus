@@ -112,58 +112,7 @@ class BigQueryConnector:
         except Exception as e:
             logger.error(f"Falha ao obter o schema da tabela: {table_id}: {str(e)}")
             raise
-    
-    def extract_table(self, table_id, limit=None):
-        """
-        Extrai dados de uma tabela no BQ.
-        
-        Args:
-            table_id (str)
-            limit (int, optional)
-            
-        Returns:
-            pandas.DataFrame: DAdos da tabela em um DataFrame
-        """
-        query = f"SELECT * FROM `{table_id}`"
-        if limit:
-            query += f" LIMIT {limit}"
-        
-        return self.execute_query(query)
-    
-    def extract_saeb_data(self, ano=None, limit=None):
-        """
-        Extração dos dados do SAEB (9º ano do ensino fundamental)
-        
-        Args:
-            ano (int, optional)
-            limit (int, optional)
-            
-        Returns:
-            pandas.DataFrame: Dados do SAEB em um DF
-        """
-        query = """
-        SELECT * FROM `basedosdados.br_inep_saeb.aluno_ef_9ano`
-        """
-        
-        if ano:
-            query += f" WHERE ano = {ano}"
-        
-        if limit:
-            query += f" LIMIT {limit}"
-        
-        return self.execute_query(query)
-    
-    def extract_dictionary(self):
-        """
-        Extrai dados do dicionario SAEB.
-        
-        Returns:
-            pandas.DataFrame: Dados do dicionario em um DF
-        """
-        query = """
-        SELECT * FROM `basedosdados.br_inep_saeb.dicionario`
-        """
-        return self.execute_query(query)
+
 
     def close(self):
         """Encerra a conexão com o BQ"""
