@@ -1,0 +1,40 @@
+# Base dependencies
+pandas==2.0.3
+numpy==1.24.4
+matplotlib==3.7.2
+seaborn==0.12.2
+plotly==5.18.0
+
+# Google Cloud dependencies
+google-cloud-bigquery==3.12.0
+google-auth==2.23.4
+google-cloud-storage==2.13.0
+db-dtypes==1.1.1
+
+# Database dependencies
+sqlalchemy==2.0.23
+psycopg2-binary==2.9.9  # For PostgreSQL
+pymysql==1.1.0          # For MySQL
+pyarrow==14.0.1
+fastparquet==2023.10.1
+
+# Streamlit dashboard
+streamlit==1.29.0
+streamlit-aggrid==0.3.4
+streamlit-plotly-events==0.0.6
+
+# Configuration and utilities
+pyyaml==6.0.1
+python-dotenv==1.0.0
+
+# Data processing
+dbt-core==1.7.3
+dbt-postgres==1.7.3     # For PostgreSQL
+dbt-sqlite==1.7.3       # For SQLite
+
+# Development tools
+jupyter==1.0.0
+pytest==7.4.3
+black==23.10.1
+flake8==6.1.0
+pre-commit==3.5.0
