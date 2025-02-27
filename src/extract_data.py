@@ -3,9 +3,6 @@ import pandas as pd
 from google.cloud import bigquery
 from datetime import datetime
 
-# Configuração do ambiente
-os.environ['GOOGLE_APPLICATION_CREDENTIALS'] = 'caminho/para/seu/arquivo/de/credenciais.json'
-
 def criar_diretorio(nome_diretorio):
     """
     Cria um diretório para armazenar os dados, se não existir.
