@@ -1,8 +1,5 @@
 # Documentação do Projeto - Análise de Dados SAEB
 
-**Autor:** [Seu Nome]  
-**Data:** Fevereiro/2025
-
 ## 1. Introdução
 
 Este documento apresenta a documentação do projeto de transformação dos microdados do SAEB (Sistema de Avaliação da Educação Básica) em um modelo OLAP (Online Analytical Processing) para análise educacional. O projeto foca especificamente nos dados do 9º ano do Ensino Fundamental e visa responder a questões estratégicas sobre o desempenho educacional no Brasil.
