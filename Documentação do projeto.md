@@ -2,13 +2,13 @@
 
 ## 1. Introdução
 
-Este documento apresenta a documentação do projeto de transformação dos microdados do SAEB (Sistema de Avaliação da Educação Básica) em um modelo OLAP (Online Analytical Processing) para análise educacional. O projeto foca especificamente nos dados do 9º ano do Ensino Fundamental e visa responder a questões estratégicas sobre o desempenho educacional no Brasil.
+Este documento apresenta a documentação do projeto de transformação dos microdados do SAEB (Sistema de Avaliação da Educação Básica) em um modelo OLAP para análise educacional. O projeto foca especificamente nos dados do 9º ano do Ensino Fundamental e visa responder a questões estratégicas sobre o desempenho educacional no Brasil.
 
 ## 2. Visão Geral do Projeto
 
 ### 2.1. Objetivo
 
-O objetivo principal deste projeto é transformar os microdados do SAEB em um modelo dimensional otimizado para análise, permitindo que equipes internas e externas da Letrus utilizem esses dados para tomada de decisões estratégicas na área educacional.
+O objetivo principal deste projeto é transformar os microdados do SAEB em um modelo dimensional otimizado para análise, permitindo que equipes internas e externas utilizem esses dados para tomada de decisões estratégicas na área educacional.
 
 ### 2.2. Fontes de Dados
 
@@ -23,7 +23,7 @@ As seguintes fontes de dados foram utilizadas neste projeto:
 
 - **Linguagem de Programação**: Python
 - **Bibliotecas**: Pandas, NumPy, Matplotlib, Seaborn
-- **Armazenamento de Dados**: Arquivos CSV (para simplicidade, poderia ser expandido para um banco de dados)
+- **Armazenamento de Dados**: Arquivos CSV (para simplicidade, poderia ser expandido para um banco de dados/Data warehouse)
 - **Visualização**: Matplotlib, Seaborn, Power BI
 
 ## 3. Arquitetura da Solução
@@ -59,7 +59,7 @@ projeto_saeb/
 
 Para este projeto, optou-se por utilizar um modelo dimensional do tipo **Estrela (Star Schema)**, devido à sua simplicidade, desempenho para consultas analíticas e facilidade de compreensão pelos usuários de negócio.
 
-O modelo consiste em uma tabela de fatos central (`fato_desempenho`) conectada a várias tabelas de dimensão, conforme ilustrado abaixo:
+O modelo consiste em uma tabela fato central (`fato_desempenho`) conectada a várias tabelas de dimensão, conforme ilustrado abaixo:
 
 ```
                      ┌─────────────┐
@@ -128,7 +128,7 @@ Contém informações sobre os alunos e suas características socioeconômicas.
 | tx_resp_q001, tx_resp_q002, ... | Respostas às questões socioeconômicas |
 | tx_resp_q001_desc, tx_resp_q002_desc, ... | Descrições das respostas às questões |
 
-### 4.3. Tabela de Fatos
+### 4.3. Tabela Fato
 
 #### 4.3.1. Fato Desempenho (fato_desempenho)
 
@@ -246,61 +246,9 @@ Comparação do desempenho em 2021 (pós-pandemia) com os anos anteriores, avali
 3. **Gap Público-Privado**: Diferença de desempenho entre escolas públicas e privadas.
 4. **Percentual de Escolas Abaixo da Média**: Proporção de escolas com desempenho inferior à média nacional.
 5. **Índice de Impacto da Pandemia**: Variação do desempenho entre períodos pré e pós-pandemia.
+6. 
 
-## 8. Recomendações para Power BI
-
-### 8.1. Estrutura Sugerida para o Dashboard
-
-1. **Página Principal**:
-   - Visão geral dos principais indicadores
-   - Filtros interativos por ano, região e tipo de escola
-   - Mapa do Brasil com desempenho por estado
-
-2. **Análise Regional**:
-   - Comparativo detalhado entre regiões
-   - Ranking de estados e municípios
-   - Correlação entre desempenho e indicadores socioeconômicos
-
-3. **Análise Temporal**:
-   - Evolução do desempenho ao longo dos anos
-   - Impacto da pandemia
-   - Previsões de tendências
-
-4. **Análise por Tipo de Escola**:
-   - Comparativo entre escolas públicas e privadas
-   - Desempenho por dependência administrativa
-   - Análise de fatores que influenciam o desempenho
-
-5. **Análise Socioeconômica**:
-   - Relação entre desempenho e fatores socioeconômicos
-   - Impacto do apoio familiar
-   - Correlação com pretensão futura dos alunos
-
-### 8.2. Medidas DAX Sugeridas
-
-```
-// Média Ponderada de Proficiência
-Média Ponderada = 
-SUMX(fato_desempenho, fato_desempenho[proficiencia_media] * fato_desempenho[quantidade_alunos]) /
-SUM(fato_desempenho[quantidade_alunos])
-
-// Variação Ano Anterior
-Variação YoY = 
-VAR CurrentYear = MAX(dim_tempo[ano])
-VAR CurrentValue = CALCULATE(AVERAGE(fato_desempenho[proficiencia_media]), dim_tempo[ano] = CurrentYear)
-VAR PreviousValue = CALCULATE(AVERAGE(fato_desempenho[proficiencia_media]), dim_tempo[ano] = CurrentYear - 1)
-RETURN IF(ISBLANK(PreviousValue), BLANK(), (CurrentValue - PreviousValue) / PreviousValue)
-
-// Gap Público-Privado
-Gap Público-Privado = 
-VAR PrivateAvg = CALCULATE(AVERAGE(fato_desempenho[proficiencia_media]), dim_escola[id_dependencia_adm] = 4)
-VAR PublicAvg = CALCULATE(AVERAGE(fato_desempenho[proficiencia_media]), dim_escola[id_dependencia_adm] IN {1, 2, 3})
-RETURN PrivateAvg - PublicAvg
-```
-
-## 9. Conclusões e Próximos Passos
-
-### 9.1. Conclusões
+## 8. Conclusões
 
 A implementação deste modelo OLAP para os dados do SAEB permitiu uma análise aprofundada do desempenho educacional no Brasil, com foco no 9º ano do Ensino Fundamental. As análises realizadas possibilitaram identificar padrões importantes, como:
 
@@ -308,30 +256,3 @@ A implementação deste modelo OLAP para os dados do SAEB permitiu uma análise 
 - Impacto do tipo de escola no desempenho dos alunos
 - Correlação entre apoio familiar e resultados educacionais
 - Efeitos da pandemia no sistema educacional brasileiro
-
-### 9.2. Próximos Passos
-
-Para evolução do projeto, sugerem-se as seguintes ações:
-
-1. **Expansão do Modelo**:
-   - Incluir dados de outros anos do SAEB
-   - Integrar mais fontes de dados complementares (censos escolares, IDEB, etc.)
-
-2. **Aprimoramento Técnico**:
-   - Migrar para um banco de dados otimizado para OLAP (Snowflake, BigQuery, etc.)
-   - Implementar processos de atualização automática
-
-3. **Novas Análises**:
-   - Análise preditiva de desempenho
-   - Identificação de fatores de sucesso em escolas de alto desempenho em áreas vulneráveis
-   - Análise de correlação com outros indicadores sociais
-
-4. **Personalização de Dashboards**:
-   - Desenvolvimento de dashboards específicos para diferentes perfis de usuários
-   - Implementação de alertas para indicadores críticos
-
-## 10. Referências
-
-- INEP. Sistema de Avaliação da Educação Básica (SAEB). Disponível em: https://www.gov.br/inep/pt-br/areas-de-atuacao/avaliacao-e-exames-educacionais/saeb
-- Base dos Dados. Documentação da base SAEB. Disponível em: https://basedosdados.org/dataset/br-inep-saeb
-- Kimball, R., & Ross, M. (2013). The Data Warehouse Toolkit: The Definitive Guide to Dimensional Modeling (3ª ed.). Wiley.
