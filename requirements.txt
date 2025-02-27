@@ -1,40 +1,26 @@
-# Base dependencies
-pandas==2.0.3
-numpy==1.24.4
-matplotlib==3.7.2
+# Bibliotecas principais para processamento de dados
+pandas==2.0.1
+numpy==1.24.3
+
+# Biblioteca para conectar ao BigQuery
+google-cloud-bigquery==3.11.4
+
+# Bibliotecas para visualização
+matplotlib==3.7.1
 seaborn==0.12.2
-plotly==5.18.0
 
-# Google Cloud dependencies
-google-cloud-bigquery==3.12.0
-google-auth==2.23.4
-google-cloud-storage==2.13.0
-db-dtypes==1.1.1
+# Bibliotecas para processamento distribuído (opcional)
+# pyspark==3.4.1
+# pyarrow==12.0.1
 
-# Database dependencies
-sqlalchemy==2.0.23
-psycopg2-binary==2.9.9  # For PostgreSQL
-pymysql==1.1.0          # For MySQL
-pyarrow==14.0.1
-fastparquet==2023.10.1
-
-# Streamlit dashboard
-streamlit==1.29.0
-streamlit-aggrid==0.3.4
-streamlit-plotly-events==0.0.6
-
-# Configuration and utilities
-pyyaml==6.0.1
+# Bibliotecas para manipulação de arquivos
 python-dotenv==1.0.0
+openpyxl==3.1.2
 
-# Data processing
-dbt-core==1.7.3
-dbt-postgres==1.7.3     # For PostgreSQL
-dbt-sqlite==1.7.3       # For SQLite
+# Bibliotecas para análise estatística
+scipy==1.10.1
+statsmodels==0.14.0
 
-# Development tools
-jupyter==1.0.0
-pytest==7.4.3
-black==23.10.1
-flake8==6.1.0
-pre-commit==3.5.0
+# Bibliotecas para documentação
+# jupyter==1.0.0
+# nbformat==5.9.0
