@@ -1,13 +1,3 @@
-# -*- coding: utf-8 -*-
-"""
-Extração de Dados - SAEB e Complementares
------------------------------------------
-Autor: [Seu Nome]
-Data: Fevereiro/2025
-Descrição: Este script realiza a extração dos dados do SAEB (9º ano), 
-dicionário SAEB, dados do IBGE e dados do ENEM para análise educacional.
-"""
-
 import os
 import pandas as pd
 from google.cloud import bigquery
