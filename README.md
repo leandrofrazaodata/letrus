@@ -46,10 +46,3 @@ O projeto utiliza um modelo dimensional do tipo Estrela (Star Schema) com as seg
   - fato_desempenho: Métricas de desempenho dos alunos
 
 Para mais detalhes sobre o modelo, consulte a documentação completa.
-
-        WHERE ano >= 2019
-        LIMIT 500000  # Modificar este valor
-    """,
-    # ...
-}
-```
